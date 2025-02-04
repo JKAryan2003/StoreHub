@@ -1,0 +1,56 @@
+<div class = "container d-flex justify-content-center align-items-center", style = "margin-top: 150px;" >
+	<div class = "d-flex justify-content-center align-items-center border rounder-5 bg-white shadow  box-area flex-column", style = "padding: 80px">
+
+    <h2 class = "text-center">Edit</h2>
+
+    <%= form_for @user do |f| %>
+
+      <div class = "field form-group m-3">
+        <%= f.label :first_name %><br />
+        <%= f.text_field :first_name %>
+      </div>
+
+      <div class = "field form-group m-3">
+        <%= f.label :last_name %><br />
+        <%= f.text_field :last_name %>
+      </div>
+
+      <div class = "field form-group m-3">
+        <%= f.label :email %><br />
+        <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+      </div>
+
+      <div class = "field form-group m-3">
+        <%= f.label :password %>
+        <% if @minimum_password_length %>
+        <em>(<%= @minimum_password_length %> characters minimum)</em>
+        <% end %><br />
+        <%= f.password_field :password, autocomplete: "new-password" %>
+      </div>
+
+      <div class = "field form-group m-3">
+        <%= f.label :password_confirmation %><br />
+        <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+      </div>
+
+      <div class = "check_box_div">
+        <% @roles.each do |role| %>
+          <% if role.role_name == "Admin" %>
+            <% next%>
+          <% else %>
+            <%= f.check_box :roles, { multiple: true, checked: @user.roles.map{|rol| rol.id}.include?(role.id)} , role.id, nil %>
+            <%= role.role_name %>
+          <% end %>
+        <% end %>
+      </div>
+
+      <div class = "actions">
+        <%= f.submit "Update", class: "btn btn-success mt-3", style: "margin-left: 105px;" %>
+      </div>
+    <% end %>
+
+
+  </div>
+</div>
+
+

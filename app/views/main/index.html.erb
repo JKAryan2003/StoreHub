@@ -1,0 +1,32 @@
+<div class = "d-flex justify-content-center align-items-center outer_container ">
+  <div class = "land_container shadow-lg w-75 mb-3", style = "padding: 70px; margin-top: 60px">
+    <% if !user_signed_in? %>
+      <p class="h2 text-center fs-1">Welcome to Store Hub</p>
+    <% else %>
+      <p class="h2 text-center fs-1">Welcome to Store Hub <%= current_user.first_name %> !</p>
+    <% end %>
+    <div class = "d-flex justify-content-center align-items-center">
+      <div class = "d-flex fs-5 mt-5 w-50">
+        <span>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget 
+        </span>
+      </div>
+
+      <div >
+        <%= image_tag "shop.png", style: 'height: 450px; width: 450px;' %>
+      </div>
+    </div>
+
+    <% if !user_signed_in? %>
+       <div class = "new fs-5 mt-5 ms-5">
+        <span>New Here? Then Create One</span>
+        <%= link_to 'Register', new_user_registration_path, class: "btn btn-success ms-5" %>
+      </div>
+
+      <div class = "log fs-5 ms-5">
+        <span>Already Registered</span>
+        <%= link_to 'Log In', new_user_session_path, class: "btn btn-success ms-5" %>
+      </div>
+    <% end %>
+
+  </div>
+<div>

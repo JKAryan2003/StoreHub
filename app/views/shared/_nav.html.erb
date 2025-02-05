@@ -25,7 +25,7 @@
           <ul class="dropdown-menu dropdown-menu-dark  ">
             <li class = "dropdown-item"><%= link_to 'Home', root_path, class: "text-decoration-none text-light" %></li>
             <li class = "dropdown-item"><%= link_to 'Details', user_path(current_user), class: "text-decoration-none text-light" %></li>
-            <li class = "dropdown-item"><%= link_to 'Edit', edit_user_registration_path, class: "text-decoration-none text-light" %></li>
+            <li class = "dropdown-item"><%= link_to 'Edit', edit_user_path(current_user), class: "text-decoration-none text-light" %></li>
             <li class = "dropdown-item"><%= link_to 'Log Out', destroy_user_session_path, class: "text-decoration-none text-light",  data: { turbo_method: :delete, turbo_confirm: "Are you sure you want to log out?" }%> </li>
           </ul>
         </div>
@@ -35,7 +35,7 @@
             My Profile
           </button>
           <ul class="dropdown-menu dropdown-menu-dark" >
-              <li class = "dropdown-item"><%= link_to 'Edit', edit_user_registration_path(current_user), class: "text-decoration-none text-light" %></li>
+              <li class = "dropdown-item"><%= link_to 'Edit', edit_user_path(current_user), class: "text-decoration-none text-light" %></li>
               <li class = "dropdown-item"><%= link_to 'Details', user_path(current_user), class: "text-decoration-none text-light" %></li>
               <li class = "dropdown-item"><%= link_to 'Log Out', destroy_user_session_path, class: "text-decoration-none text-light",  data: { turbo_method: :delete }%> </li>
           </ul>

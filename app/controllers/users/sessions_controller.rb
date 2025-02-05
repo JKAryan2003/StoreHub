@@ -9,9 +9,15 @@ class Users::SessionsController < Devise::SessionsController
   # end
 
   # POST /resource/sign_in
-  # def create
-  #   super
-  # end
+  def create
+    @user = User.find_by(email: params[:user][:email])
+
+    if @user.inactive?
+      redirect_to new_user_session_path, notice: "You are not an active user"
+    else
+      super
+    end
+  end
 
   # DELETE /resource/sign_out
   # def destroy
@@ -24,6 +30,6 @@ class Users::SessionsController < Devise::SessionsController
 
   # If you have extra params to permit, append them to the sanitizer.
   def configure_sign_in_params
-    devise_parameter_sanitizer.permit(:sign_in, keys: [:first_name, :last_name, :phone_number])
+    devise_parameter_sanitizer.permit(:sign_in, keys: [:first_name, :last_name, :email, :phone_number, :status])
   end
 end

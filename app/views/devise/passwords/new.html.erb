@@ -1,22 +1,21 @@
 <div class = "container d-flex justify-content-center align-items-center", style = "margin-top: 150px; " >
-  <div class = "d-flex justify-content-center align-items-center border rounder-5 p-5 bg-white shadow flex-column", style = "padding: 80px;">
+  <div class = "d-flex justify-content-center align-items-center border rounder-5 p-5 bg-white shadow ">
     <h2>Forgot your password?</h2>
 
     <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
       <%= render "users/shared/error_messages", resource: resource %>
     
-      <div class = "field form-group m-3">
-        <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "Email" %>
+      <div class="field">
+        <%= f.label :email %><br />
+        <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
       </div>
     
-      <div class = " actions mt-3" >
-        <%= f.submit "Send me reset password instructions", class: 'btn btn-secondary' %>
+      <div class="actions">
+        <%= f.submit "Send me reset password instructions" %>
       </div>
     <% end %>
-
-    <div class = "d-flex justify-content-center align-items-center flex-column mt-4">
-      <%= render "users/shared/links" %>
-    </div>
+    
+    <%= render "users/shared/links" %>
   </div>
 </div>
     

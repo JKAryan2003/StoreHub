@@ -45,6 +45,8 @@ group :development, :test do
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
+
+  gem "pry-rails"
 end
 
 group :development do
@@ -64,3 +66,4 @@ end
 gem "pundit", "~> 2.4"
 
 gem "pagy", "~> 9.3"
+

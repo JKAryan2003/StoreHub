@@ -1,5 +1,6 @@
 <div class = "container d-flex justify-content-center align-items-center", style = "margin-top: 100px; "  >
 <div class = " d-flex justify-content-center align-items-center border rounder-5  bg-white shadow  box-area inside_container flex-column", style = "padding: 50px 200px 50px 200px;">
+    <%= render "devise/shared/error_messages", resource: resource %>
 
     <h2 class = "text-center">Log In</h2>
 
@@ -22,7 +23,7 @@
       <% end %>
 
       <div class = "actions d-flex justify-content-center align-items-center mt-4">
-        <%= f.submit "Log In", class: "btn btn-success " %>
+        <%= f.submit "Log In", class: "btn btn-primary " %>
       </div>
     <% end %>
 

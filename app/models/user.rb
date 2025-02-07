@@ -7,6 +7,7 @@ class User < ApplicationRecord
 
   has_many :user_roles, dependent: :destroy
   has_many :roles, through: :user_roles
+  has_many :products
 
   enum status: {
     active: 0,
@@ -15,6 +16,10 @@ class User < ApplicationRecord
 
   def admin?
     roles.exists?(role_name: 'Admin')  
+  end
+
+  def owner?
+    roles.exists?(role_name: 'Owner')
   end
 
 end

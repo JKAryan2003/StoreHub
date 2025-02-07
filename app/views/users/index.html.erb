@@ -1,7 +1,7 @@
 <div class = "d-flex justify-content-center align-items-center">
   <div class = "container d-inline-flex justify-content-center align-items-center flex-column", style = "margin-top: 80px;">
     <p class="h2 text-center mb-3">Users List</p>
-    <%= link_to 'Create User', new_user_path, class: "btn btn-success mb-3" %>
+    <%= link_to 'Create User', new_user_path, class: "btn btn-primary mb-3" %>
 
     <div class = "table_div">
       <table class="table table-hover text-center">
@@ -26,7 +26,7 @@
                   <%= role.role_name%>
                 <% end%>
               </td>
-              <td class = "p-3"><%= user.status %></td>
+              <td class = "p-3"><%= user.status.humanize %></td>
               <td class = "p-3">
                 <%= link_to user_path(user), class: "icon-link icon-link-hover btn btn-outline-dark", style: "--bs-icon-link-transform: translate3d(0, -.125rem, 0);" do%>
                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">

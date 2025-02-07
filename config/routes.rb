@@ -19,7 +19,11 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root "main#index"
 
+  get "menu", to: "menu#index"
+
   resources :roles
   resources :users 
-
+  resources :products
+  resources :categories
+  
 end

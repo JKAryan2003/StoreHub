@@ -1,0 +1,40 @@
+<div class = "container d-flex justify-content-center align-items-center", style = "margin-top: 150px; " >
+	<div class = "row d-flex justify-content-center align-items-center border rounder-5 p-5 bg-white shadow  box-area inside_container">
+		<p class="h2 text-center">Add Product</p>
+		<%= form_for @product do |f| %>
+			<div class = "form-group m-3">
+				<%= f.label :name %>
+				<%= f.text_field :name ,class: "form-control my-3" %>
+			</div>
+
+      <div class = "form-group m-3">
+        <%= f.label :description %>
+        <%= f.text_field :description, class: "form-control my-3" %>
+      </div>
+
+      <div class = "form-group m-3">
+        <%= f.label :price %>
+        <%= f.text_field :price, class: "form-control my-3" %>
+      </div>
+
+
+      <div class = "mt-4 d-flex justify-content-center align-items-center">
+        <%= f.label :Category, class: "me-2" %>
+        <%= f.select :category_ids, @categories.map { |category, value| [category.name, category.id] } %>
+      </div>
+
+      <div class = "form-group m-3">
+        <%= f.label :image, "Upload picture:" %><br>
+        <%= f.file_field :images, multiple: true, direct_upload: true %>
+      </div>
+
+
+
+			<div class = "ms-5 d-flex justify-content-center">
+				<%= f.submit 'Add Product', class: 'btn btn-primary mt-3 me-5 ' %>
+			</div>
+		<% end %>
+
+	</div>
+
+</div>

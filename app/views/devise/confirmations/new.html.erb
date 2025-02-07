@@ -1,7 +1,7 @@
 <div class = "container d-flex justify-content-center align-items-center", style = "margin-top: 150px; " >
   <div class = "d-flex justify-content-center align-items-center border rounder-5 p-5 bg-white shadow flex-column", style = "padding: 80px;">
 
-    <%= render "users/shared/error_messages", resource: resource %>
+    <%= render "devise/shared/error_messages", resource: resource %>
 
 
     <h2>Resend confirmation instructions</h2>
@@ -17,7 +17,7 @@
     <% end %>
 
     <div class = "d-flex justify-content-center align-items-center flex-column mt-3">
-      <%= render "users/shared/links" %>
+      <%= render "devise/shared/links" %>
     </div>
 
   </div>

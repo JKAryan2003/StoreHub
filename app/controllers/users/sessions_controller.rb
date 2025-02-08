@@ -8,12 +8,10 @@ class Users::SessionsController < Devise::SessionsController
 
     if @user.blank?
       redirect_to new_user_session_path, alert: "Email can't be blank"
+    elsif @user.inactive?
+      redirect_to new_user_session_path, notice: "You are not an active user"
     else
-      if @user.inactive?
-        redirect_to new_user_session_path, notice: "You are not an active user"
-      else
-        super
-      end
+      super
     end
 
   end

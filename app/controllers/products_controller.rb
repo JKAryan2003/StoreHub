@@ -3,6 +3,7 @@ class ProductsController < ApplicationController
 
   def index
     @products = Product.all
+    @product = Product.find_by(id: params[:id])
   end
 
   def new
@@ -44,14 +45,24 @@ class ProductsController < ApplicationController
   end
 
   def destroy
-    product.destroycp
+    product.destroy
     redirect_to products_path
   end
+
+  def search
+    if params[:search].blank?
+      redirect_to products_path
+    else
+      @parameter = params[:search].downcase
+      @results = Product.all.where("lower(name) LIKE :search", search: "%#{@parameter}%")
+    end
+  end
+
 
   private
 
   def product_params
-    params.require(:product).permit(:current_user, :name, :description, :price, category_ids: [], images: [])
+    params.require(:product).permit(:current_user, :name, :description, :price, :search, category_ids: [], images: [])
   end
 
   def product

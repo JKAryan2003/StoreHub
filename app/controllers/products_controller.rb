@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-  before_action :authenticate_user!, only: [:index, :edit, :update]
+  before_action :authenticate_user!, only: [:index, :edit, :update, :new, :create, :destroy]
 
   def index
     @products = Product.all
@@ -12,8 +12,8 @@ class ProductsController < ApplicationController
   end
 
   def create
-    authorize current_user
     @product = Product.new(product_params)
+    authorize @product
     @product.user = current_user
 
     if @product.save
@@ -26,9 +26,12 @@ class ProductsController < ApplicationController
 
   def edit
     @product = Product.find_by(id: params[:id])
+    @categories = Category.all
   end
 
   def update
+    @product = Product.find_by(id: params[:id])
+    @categories = Category.all
     if @product.update(product_params)
       redirect_to products_path, notice: "Product is Updated"
     else
@@ -36,9 +39,22 @@ class ProductsController < ApplicationController
     end 
   end
 
+  def show
+    product
+  end
+
+  def destroy
+    product.destroycp
+    redirect_to products_path
+  end
+
   private
 
   def product_params
-    params.require(:product).permit(:current_user, :name, :description, :price, :category_ids, images: [])
+    params.require(:product).permit(:current_user, :name, :description, :price, category_ids: [], images: [])
+  end
+
+  def product
+    @product ||= Product.find_by(id: params[:id])
   end
 end

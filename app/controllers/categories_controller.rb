@@ -1,5 +1,5 @@
 class CategoriesController < ApplicationController
-  before_action :authenticate_user!, only: [:index, :edit]
+  before_action :authenticate_user!, only: [:index, :edit, :update, :new, :create, :destroy]
 
   def index
     @categories = Category.all
@@ -7,6 +7,7 @@ class CategoriesController < ApplicationController
   
   def new
     @category = Category.new
+    @parent_categories = Category.where(parent_id: nil)
     authorize @category
   end
 
@@ -21,15 +22,26 @@ class CategoriesController < ApplicationController
     end
   end
 
+  # binding.pry
+
   def edit
   end
 
   def update
   end
 
+  def destroy
+    category.destroy()
+    redirect_to categories_path
+  end
+
   private
 
   def category_params
-    params.require(:category).permit(:name, :description)
+    params.require(:category).permit(:name, :description, :parent_id)
+  end
+
+  def category
+    @category ||= Category.find_by(id: params[:id])
   end
 end

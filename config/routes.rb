@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :roles
   devise_for :users, controllers: {
     registrations: 'users/registrations', 
     sessions: 'users/sessions',
@@ -23,7 +22,8 @@ Rails.application.routes.draw do
 
   resources :roles
   resources :users 
-  resources :products
-  resources :categories
-  
+  resources :products do
+    resources :product_stocks
+  end
+  resources :categories  
 end

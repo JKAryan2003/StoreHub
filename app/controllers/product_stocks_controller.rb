@@ -1,28 +1,30 @@
 class ProductStocksController < ApplicationController
+
+  def index
+  end
+
+  
   def new
-    @stock = ProductStock.new
+    @product = Product.find(params[:product_id])
+    @product_stock = ProductStock.new
   end
 
   def create
-    @stock = ProductStock.new(stock_params)
-    @stock.product = Product.find_by(id: params[:id])
+    @product_stock = ProductStock.new(stock_params)
+    @product_stock.product = Product.find(params[:product_id])
 
-    if transaction_type == true
-    end
-
-    if @product.save
+    if @product_stock.save
       redirect_to products_path, notice: "Product added"
     else
-      flash.now[:alert] = @product.errors.full_messages.to_sentence
+      flash.now[:alert] = @product_stock.errors.full_messages.to_sentence
       render turbo_stream: [turbo_stream.update("flash", partial: "shared/flash")]
     end
-
   end
 
   private
 
   def stock_params
-    params.require(:stock).permit(:transaction_type, :quantity)
+    params.require(:product_stock).permit(:transaction_type, :quantity)
   end
 
 

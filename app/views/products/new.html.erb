@@ -6,7 +6,7 @@
 		<%= form_for @product do |f| %>
       <div class = "mt-4 d-flex justify-content-center align-items-center">
         <%= f.label :Category, class: "me-2" %>
-        <%= f.select :category_ids, @categories.map { |category, value| [category.name, category.id] }, { multiple: true, class: 'form-control form-select-multiple' }  %>
+        <%= f.select :category_ids, @categories.map { |category, value| [category.name, category.id] }, { multiple: true, class: 'form-control form-select-multiple' }, size: "2"  %>
       </div>
 
 			<div class = "form-group m-3">

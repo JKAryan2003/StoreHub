@@ -5,4 +5,18 @@ class Product < ApplicationRecord
   has_many :product_stocks
 
   belongs_to :user
+
+  def self.search(search)
+    if search
+      product = Product.find_by(name: search)
+
+      if product
+        self.product
+      else
+        @search_products = Product.all
+      end
+    else
+      @search_products = Product.all
+    end
+  end
 end

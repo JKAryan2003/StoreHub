@@ -19,11 +19,13 @@ Rails.application.routes.draw do
   root "main#index"
 
   get "menu", to: "menu#index"
+  get '/search', to: "products#search"
 
   resources :roles
   resources :users 
-  resources :products do
+  resources :products do 
     resources :product_stocks
   end
+
   resources :categories  
 end

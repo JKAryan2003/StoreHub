@@ -23,9 +23,8 @@ Rails.application.routes.draw do
 
   resources :roles
   resources :users 
-  resources :products do 
-    resources :product_stocks
-  end
-
+  resources :products 
+  resources :product_stocks
+ 
   resources :categories  
 end

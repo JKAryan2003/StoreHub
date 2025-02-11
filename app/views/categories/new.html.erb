@@ -15,7 +15,7 @@
 
       <div class = "form-group m-3">
 				<p>If it is a subcategory then mention its parent Category</p>
-				<%= f.select :parent_id, @parent_categories.map { |category, value| [category.name, category.id] }, { class: 'form-control' }  %>
+				<%= f.select :parent_id, @parent_categories.map { |category, value| [category.name, category.id] }, {include_blank: "None"}, { class: 'form-control' } %>
 			</div>
 
 			<div class = "ms-5 d-flex justify-content-center">

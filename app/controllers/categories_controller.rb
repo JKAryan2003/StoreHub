@@ -22,16 +22,24 @@ class CategoriesController < ApplicationController
     end
   end
 
-  # binding.pry
-
+  def show
+    category
+  end
   def edit
+    @category = Category.find_by(id: params[:id])
   end
 
   def update
+    @category = Category.find_by(id: params[:id])
+    if @category.update(category_params)
+      redirect_to categories_path, notice: "Category is Updated"
+    else
+      render :edit
+    end 
   end
 
   def destroy
-    category.destroy()
+    category.destroy
     redirect_to categories_path
   end
 

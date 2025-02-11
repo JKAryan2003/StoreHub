@@ -10,10 +10,10 @@
         <div>
           <h6 class = "card-title"><%= product.price  %></h6>
         </div>
+      </div>
 
-        <div>
-          <%= link_to 'Details', product_path(product), class: "btn btn-success ms-5" %>
-        </div>
+      <div class = "mt-4">
+        <%= link_to 'Details', product_path(product), class: "btn btn-success ms-5" %>
       </div>
     </div>
   <% end %>

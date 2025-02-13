@@ -1,9 +1,10 @@
 class ProductsController < ApplicationController
-  before_action :authenticate_user!, only: [:index, :edit, :update, :new, :create, :destroy]
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
 
   def index
     @products = Product.all
-    @product = Product.find_by(id: params[:id])
+    @categories = Category.all
+    product
   end
 
   def new
@@ -26,12 +27,12 @@ class ProductsController < ApplicationController
   end
 
   def edit
-    @product = Product.find_by(id: params[:id])
+    product
     @categories = Category.all
   end
 
   def update
-    @product = Product.find_by(id: params[:id])
+    product
     @categories = Category.all
     if @product.update(product_params)
       redirect_to products_path, notice: "Product is Updated"
@@ -48,16 +49,6 @@ class ProductsController < ApplicationController
     product.destroy
     redirect_to products_path
   end
-
-  def search
-    if params[:search].blank?
-      redirect_to products_path
-    else
-      @parameter = params[:search].downcase
-      @results = Product.all.where("lower(name) LIKE :search", search: "%#{@parameter}%")
-    end
-  end
-
 
   private
 

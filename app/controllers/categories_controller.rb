@@ -1,5 +1,5 @@
 class CategoriesController < ApplicationController
-  before_action :authenticate_user!, only: [:index, :edit, :update, :new, :create, :destroy]
+  before_action :authenticate_user!
 
   def index
     @categories = Category.all
@@ -41,6 +41,12 @@ class CategoriesController < ApplicationController
   def destroy
     category.destroy
     redirect_to categories_path
+  end
+
+  def products
+    @categories = Category.all
+    category = Category.find_by(id: params[:id])
+    @products = category.products
   end
 
   private

@@ -1,7 +1,5 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!, only: [:index, :show, :edit, :update]
-  # before_action :require_admin, only: [:index]
-
   def index
     @users = User.all
     authorize @users
@@ -56,6 +54,10 @@ class UsersController < ApplicationController
     user
     user.destroy
     redirect_to users_path  
+  end
+
+  def my_products
+    @my_products = current_user.products
   end
 
   private

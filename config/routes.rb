@@ -21,10 +21,29 @@ Rails.application.routes.draw do
   get "menu", to: "menu#index"
   get '/search', to: "products#search"
 
+  post 'cart/add'
+  post 'cart/remove'             
+
+  post 'cart/increase'
+  post 'cart/decrease'
+
   resources :roles
-  resources :users 
+  
+  resources :users do
+    member do
+      get '/product', to: 'users#my_products'
+      get 'cart', to: 'cart#show'
+    end
+  end
+
   resources :products 
   resources :product_stocks
  
-  resources :categories  
+  resources :categories do
+    member do
+      get '/product', to: 'categories#products'
+    end
+  end
+  
+  
 end

@@ -1,4 +1,6 @@
 class MainController < ApplicationController
-  def index 
+  def index
+    @products = Product.all
+    @categories = Category.all 
   end
 end

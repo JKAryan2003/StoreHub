@@ -1,25 +1,90 @@
-<div class = "d-flex justify-content-center align-items-center outer_container ">
-  <div class = "land_container shadow-lg w-75 mb-3", style = "padding: 70px; margin-top: 100px">
-    <% if !user_signed_in? %>
-      <p class="h2 text-center fs-1">Welcome to Store Hub</p>
-    <% else %>
-      <p class="h2 text-center fs-1">Welcome to Store Hub <%= current_user.first_name %> !</p>
-    <% end %>
-    <div class = "d-flex justify-content-center align-items-center">
-      <div class = "d-flex fs-5 mt-5 w-50">
-        <span>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget 
-        </span>
-      </div>
-
-      <div >
-        <%= image_tag "shop.png", style: 'height: 450px; width: 450px;' %>
-      </div>
-    </div>
-
-    <div class = "new fs-5 mt-5 ms-5">
-      <%= link_to 'Explore', menu_path, class: "btn btn-success ms-5" %>
-    </div>
-
-
-  </div>
 <div>
+  <div id="carouselExampleAutoplaying" class="carousel slide carousel-fade" data-bs-ride="carousel">
+    <div class="carousel-inner">
+      <%= link_to products_path do %>
+        <div class="carousel-item active">
+          <%= image_tag "ad1.jpg", class: "d-block w-100" %>
+        </div>
+      <% end %>
+      <div class="carousel-item">
+        <%= image_tag "ad2.jpg", class: "d-block w-100" %>
+      </div>
+      <div class="carousel-item">
+        <%= image_tag "ad3.jpg", class: "d-block w-100" %>
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+</div>
+
+<div class = "d-flex mt-5">
+	<div class = "bg-body-tertiary ms-4" style = "width: 15%;">
+		<p class = "fw-bold">Shop by Categories</p>
+		<% @categories.each_with_index do |category,i| %>
+			<% if category.parent_id == nil %>
+				<div class="accordion" id="accordionExample">
+					<div class="accordion-item">
+						<h2 class="accordion-header">
+								<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse<%= i %>" aria-expanded="true" aria-controls="collapse<%= i %>" >
+								<%= category.name %>
+								</button>
+						
+						</h2>
+						<div id="collapse<%= i %>" class="accordion-collapse" data-bs-parent="#accordionExample">
+							<div class="accordion-body">
+								<% category.sub_categories.each_with_index do |sub_category,i| %>
+									<div class="accordion" id="accordionExample">
+										<div class="accordion-item">
+											<h2 class="accordion-header">
+												<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse<%= i %>" aria-expanded="true" aria-controls="collapse<%= i %>">
+													<%= sub_category.name %>
+												</button>
+											</h2>
+											<div id="collapse<%= i %>" class="accordion-collapse" data-bs-parent="#accordionExample">
+												<div class="accordion-body">
+													<% category.sub_categories.each do |sub_category| %>
+														<%= sub_category.name %>
+													<% end %>
+												</div>
+											</div>
+										</div>
+									</div>
+								<% end %>
+							</div>
+						</div>
+					</div>
+				</div>
+			<% end %>
+		<% end %>
+	</div>
+
+	<div class = "d-flex bg-body-tertiary" style = "width: 75%; margin-left: 80px;">
+		<% @products.each do |product| %>
+			<div style = "height: 38rem; width: 18rem;">
+				<%= image_tag(product.images.first, style: "width: 18rem; height: 18rem;" ) %>
+				<div >
+					<div>
+						<h7 class = "card-title"><%= product.name  %></h7>
+					</div>
+
+					<div>
+						<h6 class = "card-title"><%= product.price  %></h6>
+					</div>
+				</div>
+
+				<div class = "mt-4">
+					<%= link_to 'Details', product_path(product), class: "btn btn-success ms-5" %>
+				</div>
+			</div>
+		<% end %>
+	</div>
+ 
+</div>
+

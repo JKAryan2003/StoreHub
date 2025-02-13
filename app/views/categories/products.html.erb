@@ -5,19 +5,18 @@
 			<% if category.parent_id == nil %>
 				<div class="accordion" id="accordionExample">
 					<div class="accordion-item">
-						<h2 class="accordion-header d-flex justify-content-between">
-							<%= link_to category.name, product_category_path(category), class: "text-decoration-none" %>
-							<button class="accordion-button w-25" type="button" data-bs-toggle="collapse" data-bs-target="#collapse<%= i %>" aria-expanded="false" aria-controls="collapse<%= i %>">
+						<h2 class="accordion-header">
+							<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse<%= i %>" aria-expanded="true" aria-controls="collapse<%= i %>">
+								<%= category.name %>
 							</button>
 						</h2>
-				
-						<div id="collapse<%= i %>" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+						<div id="collapse<%= i %>" class="accordion-collapse" data-bs-parent="#accordionExample">
 							<div class="accordion-body">
 								<% category.sub_categories.each_with_index do |sub_category,i| %>
 									<div class="accordion" id="accordionExample">
 										<div class="accordion-item">
 											<h2 class="accordion-header">
-												<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse<%= i %>" aria-expanded="false" aria-controls="collapse<%= i %>">
+												<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse<%= i %>" aria-expanded="true" aria-controls="collapse<%= i %>">
 													<%= sub_category.name %>
 												</button>
 											</h2>
@@ -54,10 +53,7 @@
 				</div>
 
 				<div class = "mt-4">
-					<%= form_with(url: cart_add_path) do |f| %>
-						<%= f.hidden_field :id, value: product.id %>
-						<%= f.submit "Add to Cart" %>
-					<% end %>
+					<%= link_to 'Details', product_path(product), class: "btn btn-success ms-5" %>
 				</div>
 			</div>
 		<% end %>

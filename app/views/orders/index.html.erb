@@ -1,0 +1,31 @@
+<p class="h2 text-center">Manage Orders</p>
+<div class = "row m-5 ">
+	<% @my_product_orders.each do |my_product| %>
+
+		<div class="row bg-white m-5 p-5 shadow">
+			<% my_product.order_items.each do |order_item| %>
+				<div class = "col-md-6">
+					<%= image_tag(order_item.product.images.first, style: "width: 15rem; height: 15rem; padding-left: ;") %>
+				</div>
+
+				<div class = "col-md-6 mt-5">
+					<span class = "fw-bold"><%= order_item.product.name %></span>
+					<div class = "d-flex mt-3">
+						<span class = "fw-bold">Quantity : </span>
+						<span><%= order_item.quantity %></span> 
+					</div>
+
+					<div class = "d-flex mt-3"> 
+						<span class = "fw-bold">Price : </span>
+						<span><%= order_item.price %></span> 
+						<%= form_with(url: order_item_path(order_item.id), method: :patch) do |f| %>
+							<%= f.select :status, options_for_select(OrderItem.statuses.map {|status, value| [status.to_s.humanize, status.to_s]}, order_item.status) %>
+							<%= f.submit "Update", class: "btn btn-success mt-3" %>
+						<% end %>
+					</div>
+
+				</div>
+			<% end %>
+		</div>
+	<% end%>
+<div>

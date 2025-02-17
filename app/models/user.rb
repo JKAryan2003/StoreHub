@@ -9,6 +9,7 @@ class User < ApplicationRecord
   has_many :roles, through: :user_roles
   has_many :products
   has_one :cart
+  has_many :orders, dependent: :destroy
 
   enum status: {
     active: 0,

@@ -1,24 +1,48 @@
-<div class = "d-flex mt-5">
-	<div class = "bg-body-tertiary ms-4" style = "width: 15%;">
+<div id="carouselExampleAutoplaying" class="carousel slide carousel-fade" data-bs-ride="carousel">
+	<div class="carousel-inner">
+		<%= link_to products_path do %>
+			<div class="carousel-item active">
+				<%= image_tag "ad1.jpg", class: "d-block w-100" %>
+			</div>
+		<% end %>
+		<div class="carousel-item">
+			<%= image_tag "ad2.jpg", class: "d-block w-100" %>
+		</div>
+		<div class="carousel-item">
+			<%= image_tag "ad3.jpg", class: "d-block w-100" %>
+		</div>
+	</div>
+	<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+		<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+		<span class="visually-hidden">Previous</span>
+	</button>
+	<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+		<span class="carousel-control-next-icon" aria-hidden="true"></span>
+		<span class="visually-hidden">Next</span>
+	</button>
+</div>
+
+<div class = "d-flex m-5 ">
+	<div class = "shadow p-3 rounded" style = "width: 15%;">
 		<p class = "fw-bold">Shop by Categories</p>
 		<% @categories.each_with_index do |category,i| %>
 			<% if category.parent_id == nil %>
 				<div class="accordion" id="accordionExample">
 					<div class="accordion-item">
-						<h2 class="accordion-header d-flex justify-content-between">
-							<%= link_to category.name, product_category_path(category), class: "text-decoration-none" %>
+						<h2 class="accordion-header d-flex justify-content-between align-items-center">
+							<%= link_to category.name, product_category_path(category), class: "text-decoration-none fs-6 ps-4" %>
 							<button class="accordion-button w-25" type="button" data-bs-toggle="collapse" data-bs-target="#collapse<%= i %>" aria-expanded="false" aria-controls="collapse<%= i %>">
 							</button>
 						</h2>
 				
 						<div id="collapse<%= i %>" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-							<div class="accordion-body">
+							<div class="accordion-body w-100">
 								<% category.sub_categories.each_with_index do |sub_category,i| %>
-									<div class="accordion" id="accordionExample">
+
 										<div class="accordion-item">
-											<h2 class="accordion-header">
-												<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse<%= i %>" aria-expanded="false" aria-controls="collapse<%= i %>">
-													<%= sub_category.name %>
+											<h2 class="accordion-header d-flex justify-content-between align-items-center">
+												<%= link_to sub_category.name, product_category_path(category), class: "fs-6 text-decoration-none fs-5 ps-4" %>
+												<button class="accordion-button w-25" type="button" data-bs-toggle="collapse" data-bs-target="#collapse<%= i %>" aria-expanded="false" aria-controls="collapse<%= i %>">
 												</button>
 											</h2>
 											<div id="collapse<%= i %>" class="accordion-collapse" data-bs-parent="#accordionExample">
@@ -29,7 +53,7 @@
 												</div>
 											</div>
 										</div>
-									</div>
+									
 								<% end %>
 							</div>
 						</div>
@@ -39,29 +63,32 @@
 		<% end %>
 	</div>
 
-	<div class = "d-flex bg-body-tertiary" style = "width: 75%; margin-left: 80px;">
-		<% @products.each do |product| %>
-			<div style = "height: 38rem; width: 18rem;">
-				<%= image_tag(product.images.first, style: "width: 18rem; height: 18rem;" ) %>
-				<div >
-					<div>
-						<h7 class = "card-title"><%= product.name  %></h7>
-					</div>
+	<div class = "d-flex ms-5 me-5" style = "width: 85%;">
+	  
+    <% @products.each do |product| %>
+			<div class = "d-flex flex-column m-3 p-5 shadow rounded" style = "height: 500px; width: 400px;">
+				<%= image_tag(product.images.first, style: "width: 18rem; height: 60%;" ) %>
 
-					<div>
-						<h6 class = "card-title"><%= product.price  %></h6>
-					</div>
+				<div style = "height: 15%; padding: 15px 30px 0px 30px;">
+					<p class = "fw-bold"><%= product.name %></p>
 				</div>
 
-				<div class = "mt-4">
-					<%= form_with(url: cart_add_path) do |f| %>
+				<div style = "height: 10%; padding: 0px 30px 0px 30px;">
+					<p class = "fw-normal">₹<%= product.price %></p>
+				</div>
+
+				<div class = "d-flex justify-content-around"  style = "height: 15%;">
+					<div>
+						<%= link_to "Details", product_path(product), class: "btn btn-info" %>
+					</div>
+					<%= form_with(url: cart_products_path) do |f| %>
 						<%= f.hidden_field :id, value: product.id %>
-						<%= f.submit "Add to Cart" %>
+						<%= f.submit "Add to Cart", class: "btn btn-dark" %>
 					<% end %>
 				</div>
 			</div>
 		<% end %>
+
 	</div>
- 
 </div>
 

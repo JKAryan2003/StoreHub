@@ -20,20 +20,22 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
     <style>
-      .montserrat {
-        font-family: "Montserrat", serif;
+      .roboto{
+        font-family: "Roboto", serif;
         font-optical-sizing: auto;
         font-weight: <weight>;
         font-style: normal;
+        font-variation-settings:
+          "wdth" 100;
       }
     </style>
 
   </head>
 
-  <body class = "montserrat">
+  <body class = "roboto">
     <%= render "shared/flash" %>
     <%= render "shared/nav" %>
     <%= yield %>

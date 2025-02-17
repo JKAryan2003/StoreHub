@@ -1,0 +1,39 @@
+<div class = "d-flex flex-column justify-content-center"> 
+  <% if @my_orders.blank? %>
+    <p class="h2 text-center">You have no Orders</p>
+  <% else %>
+    <p class="h2 text-center">My Orders</p>
+
+    <div class = "row m-5 ">
+      <% @my_orders.each do |my_order| %>
+
+        <div class="row bg-white m-5 p-5 shadow">
+          <% my_order.order_items.each do |order_item| %>
+            <div class = "col-md-6">
+              <%= image_tag(order_item.product.images.first, style: "width: 15rem; height: 15rem; padding-left: ;") %>
+            </div>
+
+            <div class = "col-md-6 mt-5">
+              <span class = "fw-bold"><%= order_item.product.name %></span>
+              <div class = "d-flex mt-3">
+                <span class = "fw-bold">Quantity : </span>
+                <span><%= order_item.quantity %></span> 
+              </div>
+
+              <div class = "d-flex mt-3"> 
+                <span class = "fw-bold">Price : </span>
+                <span><%= order_item.price %></span> 
+              </div>
+              
+              <div class = "d-flex mt-3"> 
+                <span class = "fw-bold">Status : </span>
+                <span><%= order_item.status.capitalize() %></span> 
+              </div>
+            </div>
+          <% end %>
+        </div>
+      <% end%>
+    <div>
+  <% end %>
+</div>
+

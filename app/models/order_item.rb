@@ -3,6 +3,7 @@ class OrderItem < ApplicationRecord
   belongs_to :product
 
   enum :status, [
-    :placed, :delivered, :shipped, :in_transit, :cancelled 
+    :placed, :confirmed, :delivered, :shipped, :in_transit, :cancelled 
 ]
+
 end

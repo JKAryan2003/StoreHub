@@ -1,0 +1,96 @@
+<%= javascript_include_tag 'product' %>
+
+<div class = "container d-flex justify-content-center align-items-center flex-column", style = "margin-top: 120px;">
+	<div class = "d-flex justify-content-center align-items-center flex-column">
+
+		<p class="h2 text-center mb-3">Products List</p>
+		<%= link_to 'Add Product', new_product_path, class: "btn btn-primary mb-3" %>
+
+		<div class = "table_div">
+			<table class="table table-hover text-center">
+				<thead class = "table-secondary">
+					<tr>
+						<th class = "p-3" >Product Name</th>
+						<th class = "p-3" >Description</th>
+            <th class = "p-3" >Price</th>
+						<th class = "p-3" >Quantity</th>
+						<th class = "p-3" >Owner name</th>
+						<th class = "p-3" colspan = "4">Actions</th>
+					</tr>
+				</thead>
+				<tbody class = "table-light text-center" >
+					<% @all_products.each do |product|%>
+						<% a = product.product_stocks %>
+						<tr>
+							<td class = "p-3" ><%= product.name %></td>
+							<td class = "p-3"><%= product.description %></td>
+              <td class = "p-3">₹<%= product.price %></td>
+							<td class = "p-3"><%= a.where(transaction_type: "in").pluck(:quantity).sum - 
+							a.where(transaction_type: "out").pluck(:quantity).sum    %></td>
+							<td class = "p-3"><%= product.user.first_name %></td>
+							<td class = "p-3">
+								<%= link_to product_path(product), class: "icon-link icon-link-hover", style: "--bs-icon-link-transform: translate3d(0, -.125rem, 0); color: black;" do%>
+									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+										<path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0"/>
+										<path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7"/>
+									</svg>
+								<% end %>
+							</td>
+							<td class = "p-3">
+								<%= link_to edit_product_path(product), class: "icon-link icon-link-hover", style: "--bs-icon-link-transform: translate3d(0, -.125rem, 0); " do %>
+									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+										<path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325"/>
+									</svg>
+								<% end %> 
+							</td>
+							<td class = "p-3">
+								<%= link_to product_path(product), class: "icon-link icon-link-hover", style: "--bs-icon-link-transform: translate3d(0, -.125rem, 0); color: red;", data: {turbo_method: :delete, turbo_confirm: "Are you confirm to delete"} do %>
+									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+										<path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
+									</svg>
+								<% end %>  
+							</td>
+							<td class = "">
+								<%= link_to do %>
+									<button class = "btn" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal", data-id = "<%= product.id %>", data-name = "<%= product.name %>" >
+										<i class="bi bi-plus-circle"></i>						
+									</button>
+								<% end %>
+							</td>
+						</tr>
+					<% end%>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Inventory Management</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+				<%= form_for ProductStock.new, url: product_stocks_path  do |f| %>
+					<div class = "mt-4 d-flex justify-content-center align-items-center">
+						<%= f.hidden_field :product_id %>
+						<%= f.label :transaction_type, class: "me-2" %>
+						<%= f.select :transaction_type, ProductStock.transaction_types.map {|transaction_type, value| [transaction_type.to_s.humanize, transaction_type.to_s]} %>
+					</div>
+				
+					<div class = "form-group m-3">
+						<%= f.label :quantity %>
+						<%= f.text_field :quantity ,class: "form-control my-3" %>
+					</div>
+				
+					<div class = "ms-5 d-flex justify-content-center">
+						<%= f.submit 'Update Stocks', class: 'btn btn-primary mt-3 me-5 ' %>
+					</div> 
+				<% end %>
+      </div>
+    </div>
+  </div>
+</div>

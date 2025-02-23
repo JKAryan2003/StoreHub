@@ -1,8 +1,9 @@
 class CategoriesController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, only: [:index, :edit, :create, :show, :edit, :update]
 
   def index
     @categories = Category.all
+    authorize @categories
   end
   
   def new
@@ -24,9 +25,12 @@ class CategoriesController < ApplicationController
 
   def show
     category
+    authorize category
   end
+
   def edit
     @category = Category.find_by(id: params[:id])
+    authorize @category
   end
 
   def update

@@ -67,3 +67,9 @@ gem "pundit", "~> 2.4"
 
 gem "pagy", "~> 9.3"
 
+# gem 'jquery-rails'
+# gem 'jquery-datatables'
+gem 'ajax-datatables-rails'
+
+gem 'sidekiq'
+

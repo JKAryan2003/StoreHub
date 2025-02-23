@@ -11,6 +11,11 @@
             <%= submit_tag("Search", name: nil,  class: "btn btn-outline-success") %>
           <% end %>
         </form>
+        <div class = "px-3">
+          <%= link_to carts_path do %>
+            <i class="bi bi-cart-fill"></i>
+          <% end %>
+        </div>
       </div>
     </nav>
     <% if user_signed_in? %>
@@ -38,7 +43,6 @@
           <ul class="dropdown-menu dropdown-menu-dark  ">
             <li class = "dropdown-item"><%= link_to 'Home', root_path, class: "text-decoration-none text-light" %></li>
             <li class = "dropdown-item"><%= link_to 'Details', user_path(current_user), class: "text-decoration-none text-light" %></li>
-            <li class = "dropdown-item"><%= link_to 'My Cart', cart_user_path(current_user), class: "text-decoration-none text-light" %></li>
             <li class = "dropdown-item"><%= link_to 'My Order', my_orders_user_path(current_user), class: "text-decoration-none text-light" %></li>
             <li class = "dropdown-item"><%= link_to 'Edit', edit_user_path(current_user), class: "text-decoration-none text-light" %></li>
             <li class = "dropdown-item"><%= link_to 'Log Out', destroy_user_session_path, class: "text-decoration-none text-light",  data: { turbo_method: :delete, turbo_confirm: "Are you sure you want to log out?" }%> </li>
@@ -52,7 +56,7 @@
             </button>
             <ul class="dropdown-menu dropdown-menu-dark">
               <li class = "dropdown-item"><%= link_to 'Manage Product', product_user_path(current_user), class: "text-decoration-none text-light" %></li>
-              <li class = "dropdown-item"><%= link_to 'Manage Orders', orders_user_path(current_user), class: "text-decoration-none text-light" %></li>
+              <li class = "dropdown-item"><%= link_to 'Manage Orders', orders_path, class: "text-decoration-none text-light" %></li>
               <li class = "dropdown-item"><%= link_to 'Manage Categories', categories_path, class: "text-decoration-none text-light" %></li>
               <li class = "dropdown-item"><%= link_to 'Manage Inventory', categories_path, class: "text-decoration-none text-light" %></li>
             </ul>
@@ -63,7 +67,6 @@
             My Profile
           </button>
           <ul class="dropdown-menu dropdown-menu-dark" >
-              <li class = "dropdown-item"><%= link_to 'My Cart', cart_user_path(current_user), class: "text-decoration-none text-light" %></li>
               <li class = "dropdown-item"><%= link_to 'My Order', my_orders_user_path(current_user), class: "text-decoration-none text-light" %></li>
               <li class = "dropdown-item"><%= link_to 'Edit', edit_user_path(current_user), class: "text-decoration-none text-light" %></li>
               <li class = "dropdown-item"><%= link_to 'Details', user_path(current_user), class: "text-decoration-none text-light" %></li>

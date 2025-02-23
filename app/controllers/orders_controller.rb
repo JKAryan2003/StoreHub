@@ -1,12 +1,19 @@
 class OrdersController < ApplicationController
 
+  before_action :authenticate_user!, only: [:index, :show, :all_orders]
+
   def index
-    current_owner = User.find_by(id: params[:id])
-    @my_product_orders = current_owner.products
+    @orders = Order.all
+    authorize @orders
   end
 
   def show
-    @my_orders = Order.where(user_id: current_user.id)
+    @orders = Order.where(user_id: current_user.id)
+  end
+
+  def all_orders
+    @orders = Order.all
+    authorize @orders
   end
 
 end

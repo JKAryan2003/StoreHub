@@ -10,6 +10,7 @@ class User < ApplicationRecord
   has_many :products
   has_one :cart
   has_many :orders, dependent: :destroy
+  has_many :addresses, dependent: :destroy
 
   enum status: {
     active: 0,

@@ -1,4 +1,9 @@
+require 'sidekiq/web'
+
 Rails.application.routes.draw do
+
+  mount Sidekiq::Web => '/sidekiq'
+
   devise_for :users, controllers: {
     registrations: 'users/registrations', 
     sessions: 'users/sessions',
@@ -20,36 +25,37 @@ Rails.application.routes.draw do
 
   get '/search', to: "products#search"
 
-  post 'carts/remove'             
-
-  post 'carts/increase'
-  post 'carts/decrease'
-
-  resources :roles
-
-  resources :carts, only: [:destroy]
-
-  resources :cart_products
-  
   resources :users do
     member do
       get '/product', to: 'users#my_products'
-      get 'cart', to: 'carts#show'
-      get 'orders', to: 'orders#index'
       get 'my_orders', to: 'orders#show'
     end
   end
 
+  resources :roles
+
   resources :products 
+  get '/all_products', to: 'products#all_products'
   resources :product_stocks
 
-  resources :order_items
- 
   resources :categories do
     member do
       get '/product', to: 'categories#products'
     end
   end
+
+  resources :carts, only: [:index, :destroy]
+  post 'carts/remove'             
+  post 'carts/increase'
+  post 'carts/decrease'
+  resources :cart_products
+
+  resources :orders, only: [ :index ]
+  get 'all_orders', to: 'orders#all_orders'
+  resources :order_items, only: [ :update ] 
+  post 'order_items', to: 'order_items#create', as: 'create_order' 
+
+  resources :addresses
   
-  
+  get 'checkout', to: 'checkout#index'
 end

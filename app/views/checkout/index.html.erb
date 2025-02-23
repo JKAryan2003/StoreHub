@@ -1,0 +1,191 @@
+<%= javascript_include_tag 'address' %>
+
+<div class = "row">
+  <div class = "row px-5 pt-3">
+    <h3>Checkout</h3>
+  </div>
+
+  <div class = "row">
+    <div class = "row col-md-8 p-5">
+      <%= form_with(url: create_order_path) do |f| %>
+        <div class="accordion" id="accordionExample">
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                Deliver To
+              </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                <% @addresses.each do |address| %>
+                  <div class = "row">
+                    <div class = "col-md-10 p-3">
+                      <div>
+                        <%= f.radio_button :address_id, address.id, checked: (address.default_address == true) %>
+                        <span class = "fw-medium"><%= address.recipient_name%>, </span>
+                        <span class = "fw-medium"><%= address.phone_number %></span>              
+                      </div>
+
+                      <div>
+                        <p><%= @addresses.first.street %>,
+                        <%= @addresses.first.city %><br>
+                        <%= @addresses.first.state %>,
+                        <%= @addresses.first.zip_code %></p>
+                      </div>
+
+                      <button class="collapsed btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        Deliver Here
+                      </button>
+                    </div>
+
+                    <div class = "col-md-2 p-3">
+                      <%= link_to  do %>
+                        <button class = "btn btn-info" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal", data-id = "<%= current_user.id %>" >
+                        <i class="bi bi-pencil"></i>		
+                        </button>
+                      <% end %>
+
+                      <%= link_to address_path(address), data: {turbo_method: :delete, turbo_confirm: "Are you confirm to delete"} do %>
+                        <i class="bi bi-trash-fill"></i>	
+                      <% end %>
+                    </div>
+
+                    <hr width = "100%;" color = "black" size="4">
+                  </div>
+
+                <% end %>
+
+              
+                <%= link_to  do %>
+                  <button class = "btn btn-info" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal", data-id = "<%= current_user.id %>" >
+                  <i class="bi bi-house-add"></i>			
+                  </button>
+                <% end %>
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                Order Summary
+              </button>
+            </h2>
+            <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                <% @cart_products.each do |cart_product| %>
+                  <div class = "row m-2">
+                    <div class = "col-md-3">
+                      <%= image_tag(Product.find_by(id: cart_product.product_id).images.first, style: "width: 10rem; height: 10rem;") %>
+                    </div>
+
+                    <div class = "d-flex col-md-9 justify-content-between align-items-center">
+                      <span><%= cart_product.product.name %></span>
+                      <span>x<%= cart_product.quantity %></span>
+                      <span>₹<%= cart_product.quantity * cart_product.product.price %></span>
+                    </div>
+                  </div>
+                <% end %>
+
+                <div>
+                  <button class="collapsed btn btn-primary ms-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                    Confirm
+                  </button>
+                </div>
+                
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                Payment
+              </button>
+            </h2>
+            <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+                <%= f.submit "Pay Now", class: "btn btn-success mt-3" %>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  
+
+  <div class = "col-md-4 p-5">
+    <h6 class = "text-secondary">PRICE DETAILS</h6>
+    <hr width = "100%;" color = "black" size="4">
+    <% @cart_products.each do |cart_product| %>
+      <div class = "d-flex justify-content-between ">
+        <span class = "fw-bold"><%= cart_product.product.name %></span>
+        <span>₹<%= cart_product.product.price * cart_product.quantity %></span>
+      </div>
+    <% end %>
+    <hr width = "100%;" color = "black" size="4">
+    <div class = "d-flex justify-content-between  flex-column">
+      <div class = "d-flex justify-content-between"> 
+        <span class = "fw-bold">Total Amount: </span>
+        ₹<%= @total %>
+      </div>
+    </div>
+    <%= link_to "Order Now", create_order_path, data: { turbo_method: :post }, class: "btn btn-info ms-5 mt-3" %>
+  </div>
+</div>
+
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Add Address</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+				<%= form_for Address.new, url: addresses_path  do |f| %>
+
+          <div class = "form-group m-3">
+            <%= f.label :recipient_name %>
+            <%= f.text_field :recipient_name ,class: "form-control my-3" %>
+          </div>
+				
+					<div class = "form-group m-3">
+            <%= f.label :street %>
+            <%= f.text_field :street ,class: "form-control my-3" %>
+          </div>
+
+          <div class = "form-group m-3">
+            <%= f.label :city %>
+            <%= f.text_field :city, class: "form-control my-3" %>
+          </div>
+
+          <div class = "form-group m-3">
+            <%= f.label :state %>
+            <%= f.text_field :state, class: "form-control my-3" %>
+          </div>
+
+          <div class = "form-group m-3">
+            <%= f.label :zip_code %>
+            <%= f.text_field :zip_code, class: "form-control my-3" %>
+          </div>
+
+          <div class = "form-group m-3">
+            <%= f.label :phone_number %>
+            <%= f.text_field :phone_number ,class: "form-control my-3" %>
+          </div>
+
+          <div class = "form-group m-3">
+            <%= f.check_box :default_address, value: true %>
+             <%= f.label :make_this_address_default, class: "text-secondary" %>
+          </div>
+				
+					<div class = "d-flex justify-content-center">
+						<%= f.submit 'Add Address', class: 'btn btn-primary mt-3 me-5 ' %> 
+					</div> 
+				<% end %>
+      </div>
+    </div>
+  </div>
+</div>
+

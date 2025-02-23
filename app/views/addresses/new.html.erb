@@ -1,0 +1,32 @@
+<div class = "container d-flex justify-content-center align-items-center", style = "margin-top: 150px; " >
+	<div class = "row d-flex justify-content-center align-items-center border rounder-5 p-5 bg-white shadow  box-area inside_container">
+		<p class="h2 text-center">Add Address</p>
+		<%= form_for @address do |f| %>
+			<div class = "form-group m-3">
+				<%= f.label :street %>
+				<%= f.text_field :street ,class: "form-control my-3" %>
+			</div>
+
+      <div class = "form-group m-3">
+        <%= f.label :city %>
+        <%= f.text_field :city, class: "form-control my-3" %>
+      </div>
+
+      <div class = "form-group m-3">
+        <%= f.label :state %>
+        <%= f.text_field :state, class: "form-control my-3" %>
+      </div>
+
+      <div class = "form-group m-3">
+        <%= f.label :zip_code %>
+        <%= f.text_field :zip_code, class: "form-control my-3" %>
+      </div>
+
+			<div class = "ms-5 d-flex justify-content-center">
+				<%= f.submit 'Add Address', class: 'btn btn-primary mt-3 me-5 ' %>
+			</div>
+		<% end %>
+
+	</div>
+
+</div>

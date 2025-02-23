@@ -1,31 +1,52 @@
-<p class="h2 text-center">Manage Orders</p>
-<div class = "row m-5 ">
-	<% @my_product_orders.each do |my_product| %>
+<%= javascript_include_tag 'select' %>
 
-		<div class="row bg-white m-5 p-5 shadow">
-			<% my_product.order_items.each do |order_item| %>
-				<div class = "col-md-6">
-					<%= image_tag(order_item.product.images.first, style: "width: 15rem; height: 15rem; padding-left: ;") %>
-				</div>
+<div class = "container">
+	<div class = "row m-5">
+		<p class="h2 text-center">Manage Orders</p>
+		<% @orders.each do |order| %>
+			<% order.order_items.each do |order_item| %>        
+				<% if current_user.product_ids.include?(order_item.product_id) %>
+				<div class = "row bg-white shadow p-5 m-3">
 
-				<div class = "col-md-6 mt-5">
-					<span class = "fw-bold"><%= order_item.product.name %></span>
-					<div class = "d-flex mt-3">
-						<span class = "fw-bold">Quantity : </span>
-						<span><%= order_item.quantity %></span> 
+					<div class = "col-md-3">
+						<%= image_tag(order_item.product.images.first, style: "width: 15rem; height: 15rem;") %>
 					</div>
 
-					<div class = "d-flex mt-3"> 
-						<span class = "fw-bold">Price : </span>
-						<span><%= order_item.price %></span> 
-						<%= form_with(url: order_item_path(order_item.id), method: :patch) do |f| %>
+					<div class = "col-md-3 d-flex flex-column justify-content-center">
+
+						<span class = "fw-bold"><%= order_item.product.name %></span>
+						<div class = "">
+							<span class = "fw-bold">Quantity : </span>
+							<span><%= order_item.quantity %></span> 
+						</div>
+
+						<div>
+							<span class = "fw-bold">Price : </span>
+							<span>₹<%= order_item.price %></span> 
+						</div>
+					</div>
+
+					<div class = "col-md-3 d-flex flex-column justify-content-center">
+						<p class = "text-body-emphasis">Ordered by : <span class = "text-body-secondary"><%= order.user.first_name %> </span></p>
+						<div>
+							<p class = "text-body-emphasis">Delivered to</p>
+							<p class = "text-body-secondary"><%= order.address.street %>
+							<%= order.address.city %><br>
+							<%= order.address.state %>,
+							<%= order.address.zip_code %></p>
+						</div>
+					</div>
+
+					<div class = "col-md-3 d-flex align-items-center">
+						<span class = "text-body-emphasis me-3">Status </span> 
+						<%= form_with(url: order_item_path(order_item.id), method: :patch, id: "myForm") do |f| %>
 							<%= f.select :status, options_for_select(OrderItem.statuses.map {|status, value| [status.to_s.humanize, status.to_s]}, order_item.status) %>
-							<%= f.submit "Update", class: "btn btn-success mt-3" %>
 						<% end %>
 					</div>
-
 				</div>
+				<% end %>
 			<% end %>
-		</div>
-	<% end%>
-<div>
+		<% end %>
+	</div>
+
+</div>

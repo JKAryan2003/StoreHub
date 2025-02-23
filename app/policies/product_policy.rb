@@ -14,4 +14,8 @@ class ProductPolicy < ApplicationPolicy
   def update?
     edit?
   end
+
+  def all_products?
+    user.admin?
+  end
 end

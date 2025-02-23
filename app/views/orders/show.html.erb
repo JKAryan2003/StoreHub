@@ -1,39 +1,59 @@
-<div class = "d-flex flex-column justify-content-center"> 
-  <% if @my_orders.blank? %>
-    <p class="h2 text-center">You have no Orders</p>
-  <% else %>
-    <p class="h2 text-center">My Orders</p>
+<div class = "container">
+	<div class = "row m-5">
+    <% if @orders.blank? %>
+      <p class="h2 text-center">You have no Orders</p>
+    <% else %>
+      <p class="h2 text-center">Manage Orders</p>
 
-    <div class = "row m-5 ">
-      <% @my_orders.each do |my_order| %>
+      <% @orders.each do |order| %>
+        <div class = "row bg-white shadow p-5 m-3">
+          <% order.order_items.each do |order_item| %>        
+            <div class = "row p-3">
 
-        <div class="row bg-white m-5 p-5 shadow">
-          <% my_order.order_items.each do |order_item| %>
-            <div class = "col-md-6">
-              <%= image_tag(order_item.product.images.first, style: "width: 15rem; height: 15rem; padding-left: ;") %>
-            </div>
-
-            <div class = "col-md-6 mt-5">
-              <span class = "fw-bold"><%= order_item.product.name %></span>
-              <div class = "d-flex mt-3">
-                <span class = "fw-bold">Quantity : </span>
-                <span><%= order_item.quantity %></span> 
+              <div class = "col-md-3">
+                <%= image_tag(order_item.product.images.first, style: "width: 15rem; height: 15rem;") %>
               </div>
 
-              <div class = "d-flex mt-3"> 
-                <span class = "fw-bold">Price : </span>
-                <span><%= order_item.price %></span> 
+              <div class = "col-md-3 d-flex flex-column justify-content-center">
+
+                <span class = "fw-bold"><%= order_item.product.name %></span>
+                <p class = "text-body-secondary"><%= order_item.product.user.first_name %> Private Limited</p>
+                <div class = "">
+                  <span class = "fw-bold">Quantity : </span>
+                  <span><%= order_item.quantity %></span> 
+                </div>
+
+                <div>
+                  <span class = "fw-bold">Price : </span>
+                  <span>₹<%= order_item.price %></span> 
+                </div>
               </div>
-              
-              <div class = "d-flex mt-3"> 
-                <span class = "fw-bold">Status : </span>
-                <span><%= order_item.status.capitalize() %></span> 
+
+              <div class = "col-md-3 d-flex flex-column justify-content-center">
+                <div>
+                  <p class = "text-body-emphasis">Delivered to</p>
+                  <p class = "text-body-secondary"><%= order.address.street %>
+                  <%= order.address.city %><br>
+                  <%= order.address.state %>,
+                  <%= order.address.zip_code %></p>
+                </div>
+              </div>
+
+              <div class = "col-md-3 d-flex justify-content-center flex-column">
+                <div>
+                  <span class = "text-body-emphasis me-1">Status:</span>
+                  <span><%= order_item.status.capitalize() %></span>
+                </div> 
+                <%= form_with(url: order_item_path(order_item.id), method: :patch) do |f| %>
+                  <%= f.hidden_field :status, value: "cancelled" %>
+                  <%= f.submit "Cancel", class: "btn btn-danger mt-2" %>
+                <% end %>
               </div>
             </div>
           <% end %>
         </div>
-      <% end%>
-    <div>
-  <% end %>
-</div>
+      <% end %>
+    <% end %>
+	</div>
 
+</div>

@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy, :all_products]
 
   def index
     @products = Product.all
@@ -53,6 +53,15 @@ class ProductsController < ApplicationController
   def destroy
     product.destroy
     redirect_to products_path
+  end
+
+  def all_products
+    @all_products = Product.all
+    authorize @all_products
+  end
+
+  def execute_on_button_click
+    SimpleJob.perform_async('Aryan')
   end
 
   private

@@ -1,73 +1,112 @@
-<div class = "d-flex flex-column justify-content-center"> 
-  <% if @cart_products.blank? %>
-    <p class="h2 text-center">Your Cart is Empty</p>
-  <% else %>
-    <p class="h2 text-center mt-5">My Cart</p>
-    <div class = "row m-5 ">
-      <div class="col-md-7">
-        <% @cart_products.each do |cart_product| %>
-          <div class = "row shadow p-3 mb-5 bg-body-tertiary rounded">
 
-            <div class = "col-md-3" style = "padding-left: 130px;">
-              <%= image_tag(Product.find_by(id: cart_product.product_id).images.first, style: "width: 10rem; height: 10rem;") %>
-            </div>
+<div class = "container">
 
-            <div class = "col-md-9" style = "padding-left: 230px; padding-top: 20px">
+  <div class = "row">
 
-              <div class = "d-flex flex-column">
-                <p class = "fw-bold"><%= cart_product.product.name %></p>
-                <p>Seller : <%= cart_product.product.user.first_name %></p>
-                <p class = "fw-bold">₹<%=  cart_product.product.price * cart_product.quantity %></p>
+    <% if @cart_products.blank? %>
+      <p class="h2">Your Cart is Empty</p>
+    <% else %>
+
+      <div class = "row p-3 ">
+        <p class="h2 mt-5">My Cart</p>
+      </div>
+      
+      <div class = "row grid gap-0 ">
+
+        <div class = "p-5 bg-white shadow col-md-8">
+                        
+          <% @cart_products.each do |cart_product| %>
+
+            <div class = "row p-3">
+
+              <div class = "col-md-5">
+                <%= image_tag(cart_product.product.images.first, style: "width: 15rem; height: 15rem;") %>
               </div>
-               
-              <div class = "d-flex">
-                <%= form_with(url: carts_increase_path) do |f| %>
-                  <%= f.hidden_field :id, value: cart_product.id %>
-                  <%= button_tag(class: "btn") do %>
-                    <i class="bi bi-plus-circle"></i>
-                  <% end %>
-                <% end %>
 
-                <span class = "p-2 fw-bold"><%= cart_product.quantity %></span>
+              <div class = "d-flex col-md-3 flex-column justify-content-center">
 
-                <%= form_with(url: carts_decrease_path) do |f| %>
-                  <%= f.hidden_field :id, value: cart_product.id %>
-                  <%= button_tag(class: "btn") do %>
-                    <i class="bi bi-dash-circle"></i>
+                <span class = "fw-bold"><%= cart_product.product.name %></span>
+                <p class = "text-body-secondary"><%= cart_product.product.user.first_name %> Private Limited</p>
+
+                <div class = "d-flex">
+                  <div>
+                    <%= form_with(url: carts_increase_path) do |f| %>
+                      <%= f.hidden_field :id, value: cart_product.id %>
+                      <%= button_tag(class: "btn") do %>
+                        <i class="bi bi-plus-circle"></i>
+                      <% end %>
+                    <% end %>
+                  </div>
+                  
+                  <div class = "mt-1">
+                    <span><%= cart_product.quantity %></span>
+                  </div> 
+
+                  <%= form_with(url: carts_decrease_path) do |f| %>
+                    <%= f.hidden_field :id, value: cart_product.id %>
+                    <%= button_tag(class: "btn") do %>
+                      <i class="bi bi-dash-circle"></i>
+                    <% end %>
                   <% end %>
-                <% end %>
+
+                </div>
 
               </div>
-       
 
-              <div>
+              <div class = "col-md-2 d-flex flex-column justify-content-center">
+
+                <div>
+                  <span class = "fw-bold">Price : </span>
+                  <span>₹<%= cart_product.product.price * cart_product.quantity %></span> 
+                </div>
+
+              </div>
+
+              <div class = "col-md-2 d-flex flex-column justify-content-center">
                 <%= link_to 'Remove', cart_path(cart_product), class: "btn btn-danger", data: {turbo_method: :delete, turbo_confirm: "Are you sure you want to remove?"} %>
               </div>
-            </div>
-          </div>
-        <% end %> 
-      </div>
 
-      <div class = "col-md-5 d-flex flex-column justify-content-center">
-        <div class = "shadow bg-body-tertiary rounded p-5" style = "margin-bottom: 350px; height: 300px">
+            </div>
+
+          <% end %>
+
+        </div>
+
+        <div class = "p-5 bg-white shadow col-md-4">
+
+          <h6 class = "text-secondary">PRICE DETAILS</h6>
+          <hr width = "100%;" color = "black" size="4">
+
           <% @cart_products.each do |cart_product| %>
-            <div class = "d-flex justify-content-between ps-5 pe-5">
+
+            <div class = "d-flex justify-content-between ">
               <span class = "fw-bold"><%= cart_product.product.name %></span>
               <span>₹<%= cart_product.product.price * cart_product.quantity %></span>
             </div>
+
           <% end %>
+
           <hr width = "100%;" color = "black" size="4">
-          <div class = "d-flex justify-content-between ps-5 pe-5 flex-column">
+
+          <div class = "d-flex justify-content-between  flex-column">
+
             <div class = "d-flex justify-content-between"> 
-              <span class = "fw-bold">Total : </span>
+              <span class = "fw-bold">Total Amount: </span>
               ₹<%= @total %>
             </div>
+
           </div>
 
-          <%= link_to "Checkout", checkout_path, class: "btn btn-info ms-5 mt-3" %> 
-        </div>
-      </div>
-    <div>
-  <% end %>
-</div>
+          <div class = "d-flex flex-row-reverse">
+            <%= link_to "Checkout", checkout_path, class: "btn btn-info" %> 
+          </div>
 
+        </div>
+
+      </div>
+
+    <% end %>
+
+  </div>
+
+</div>

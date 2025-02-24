@@ -2,7 +2,7 @@
 
 <div class = "container">
 	<div class = "row m-5">
-		<p class="h2 text-center">Manage Orders</p>
+		<p class="h2">Manage Orders</p>
 		<% @orders.each do |order| %>
 			<% order.order_items.each do |order_item| %>        
 				<% if current_user.product_ids.include?(order_item.product_id) %>

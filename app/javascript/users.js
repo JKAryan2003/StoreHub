@@ -16,7 +16,6 @@ jQuery(document).ready(function() {
       {"data": "last_name"},
       {"data": "email"},
       {"data": "status"},
-      {"roles": "roles"},
     ]
     // pagingType is optional, if you want full pagination controls.
     // Check dataTables documentation to learn more about

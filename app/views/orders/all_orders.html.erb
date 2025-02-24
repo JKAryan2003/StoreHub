@@ -1,9 +1,9 @@
 <div class = "container">
 	<div class = "row m-5">
     <% if @orders.blank? %>
-      <p class="h2 text-center">You have no Orders</p>
+      <p class="h2">You have no Orders</p>
     <% else %>
-      <p class="h2 text-center">Manage Orders</p>
+      <p class="h2">Manage Orders</p>
 
       <% @orders.each do |order| %>
         <div class = "row bg-white shadow p-5 m-3">

@@ -55,7 +55,8 @@ Rails.application.routes.draw do
   resources :order_items, only: [ :update ] 
   post 'order_items', to: 'order_items#create', as: 'create_order' 
 
-  resources :addresses
+  resources :addresses, only: [:create, :destroy]
+  post 'addresses/edit_address'
   
   get 'checkout', to: 'checkout#index'
 end

@@ -7,7 +7,6 @@ class UserDatatable < AjaxDatatablesRails::ActiveRecord
       last_name:  { source: "User.last_name",  cond: :like, nulls_last: true },
       email:      { source: "User.email" },
       status:     { source: "User.status" }
-      roles:      { source: "User.roles.pluck(:role_name)"}
     }
   end
 
@@ -18,8 +17,7 @@ class UserDatatable < AjaxDatatablesRails::ActiveRecord
         first_name: record.first_name,
         last_name:  record.last_name,
         email:      record.email,
-        status:     record.status,
-        roles:      record.roles
+        status:     record.status
       }
     end
   end

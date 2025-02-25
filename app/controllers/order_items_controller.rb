@@ -11,7 +11,7 @@ class OrderItemsController < ApplicationController
       cart_item.destroy
     end
 
-    # binding.pry
+    
 
     # OrderMailer.order_placed_mail(current_user, current_order).deliver_later
     redirect_to root_path, notice: "Order Placed!"

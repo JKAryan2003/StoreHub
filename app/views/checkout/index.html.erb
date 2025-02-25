@@ -9,7 +9,7 @@
 
     <div class = "row grid gap-0 column-gap-4">
       <div class = "row col-md-8 p-5 bg-white shadow">
-        <%= form_with(url: create_order_path) do |f| %>
+        <%= form_with(url: create_order_path, id: "checkoutForm") do |f| %>
           <div class="accordion" id="accordionExample">
             <div class="accordion-item">
               <h2 class="accordion-header">
@@ -68,12 +68,10 @@
 
                   <% end %>
 
-                
-                  <%= link_to  do %>
-                    <button class = "btn btn-info" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal", data-id = "<%= current_user.id %>" >
-                    <i class="bi bi-house-add"></i>			
-                    </button>
-                  <% end %>
+                  <button class = "btn btn-info" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal", data-id = "" >
+                  <i class="bi bi-house-add"></i>			
+                  </button>
+     
                 </div>
               </div>
             </div>
@@ -119,7 +117,9 @@
               <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                 <div class="accordion-body">
                   <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-                  <%= f.submit "Pay Now", class: "btn btn-success mt-3" %>
+
+                  <button id="rzp-button1" class = "btn btn-success">Pay Now</button>
+                
                 </div>
               </div>
             </div>
@@ -192,7 +192,8 @@
           </div>
 
           <div class = "form-group m-3">
-            <%= f.check_box :default_address, {}, true, false %>
+            <%= f.hidden_field :default_address, value: false %>
+            
             <%= f.label :make_this_address_default, class: "text-secondary" %>
           </div>
 				
@@ -204,3 +205,34 @@
     </div>
   </div>
 </div>
+
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+  var options = {
+      "key": "rzp_test_sMAArAlcP3cfDm", 
+      "amount": "<%= @total*100 %>", 
+      "currency": "INR",
+      "name": "StoreHub",
+      "description": "Test Transaction",
+      "image": "https://example.com/your_logo",
+      "order_id": "<%= @order.id %>", 
+      "callback_url": "https://eneqd3r9zrjok.x.pipedream.net/",
+      "prefill": {
+          "name": "<%= current_user.first_name %> +  <%= current_user.last_name %>",
+          "email": "<%= current_user.email %>",
+          "contact": "6372869231"
+      }, 
+      "notes": {
+          "address": "Razorpay Corporate Office"
+      },
+      "theme": {
+          "color": "#3399cc"
+      }
+  };
+  var rzp1 = new Razorpay(options);
+  document.getElementById('rzp-button1').onclick = function(e){
+      rzp1.open();
+      e.preventDefault();
+  }
+</script>

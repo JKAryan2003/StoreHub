@@ -16,6 +16,10 @@ class Users::SessionsController < Devise::SessionsController
 
   end
 
+  def after_sign_out_path_for(resource_or_scope)
+    root_path 
+  end
+
   def configure_sign_in_params
     devise_parameter_sanitizer.permit(:sign_in, keys: [:first_name, :last_name, :email, :phone_number, :status])
   end

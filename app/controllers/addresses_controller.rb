@@ -2,20 +2,20 @@ class AddressesController < ApplicationController
 
   def create
 
-    address = params[:address]
+    binding.pry
 
-    if address[:id].blank?
+    if params[:address][:id].blank?
       @address = Address.new(address_params)
       @address.user = current_user
       change_default
-      if @address.save
-        redirect_to checkout_path, notice: "Address Created Successfully!"
-      else
-        flash.now[:alert] = @address.errors.full_messages.to_sentence
-        render turbo_stream: [turbo_stream.update("flash", partial: "shared/flash")]
-      end
+      # if @address.save
+      #   redirect_to checkout_path, notice: "Address Created Successfully!"
+      # else
+      #   flash.now[:alert] = @address.errors.full_messages.to_sentence
+      #   render turbo_stream: [turbo_stream.update("flash", partial: "shared/flash")]
+      # end
     else
-      @address = Address.find_by(id: address[:id])
+      @address = Address.find_by(id: params[:address][:id])
       change_default
     
       if @address.update(address_params)
@@ -26,6 +26,7 @@ class AddressesController < ApplicationController
       end
     end
 
+    
   end
 
   def destroy
@@ -40,7 +41,7 @@ class AddressesController < ApplicationController
   end
 
   def change_default
-    if params[:default_address] == true
+    if params[:address][:default_address] == true
       addresses = current_user.addresses
       addresses.where(default_address: true).update(default_address: false)
     end

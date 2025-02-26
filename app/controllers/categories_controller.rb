@@ -47,12 +47,6 @@ class CategoriesController < ApplicationController
     redirect_to categories_path
   end
 
-  def products
-    @categories = Category.all
-    category = Category.find_by(id: params[:id])
-    @products = category.products
-  end
-
   private
 
   def category_params

@@ -10,9 +10,6 @@ document.addEventListener('DOMContentLoaded', function () {
       const addressZipCode = this.getAttribute('data-zip_code');
       const addressPhoneNumber = this.getAttribute('data-phone_number');
       const addressDefaultAddress = this.getAttribute('data-default_address');
-      console.log(addressId);
-      
-      
 
       const addressIdElement = document.getElementById('address_id');
       const addressRecipientNameElement = document.getElementById('address_recipient_name');
@@ -22,8 +19,6 @@ document.addEventListener('DOMContentLoaded', function () {
       const addressZipCodeElement = document.getElementById('address_zip_code');
       const addressPhoneNumberElement = document.getElementById('address_phone_number');
       const addressDefaultAddressElement = document.getElementById('address_default_address');
-      console.log(addressIdElement);
-      
 
       if (addressIdElement){
         addressIdElement.value = addressId;

@@ -5,12 +5,11 @@
   <div class = "d-flex justify-content-evenly" style = "margin-right: 60px;">
     <nav class="navbar bg-body-tertiary ms-5" style = "margin-left: 80px;">
       <div class="container-fluid">
-        <form class="d-flex" role="search">
-          <%= form_tag root_path, method: "get" do %>
+        
+          <%= form_tag products_path, method: "get", class: "d-flex" do %>
             <%= text_field_tag :search, params[:search], placeholder: "Search Product", class: "form-control" %>
             <%= submit_tag("Search", name: nil,  class: "btn btn-outline-success") %>
           <% end %>
-        </form>
         <div class = "px-3">
           <%= link_to carts_path do %>
             <i class="bi bi-cart-fill"></i>
@@ -29,7 +28,7 @@
             <li class = "dropdown-item"><%= link_to 'Home', root_path, class: "text-decoration-none text-light" %></li>
             <li class = "dropdown-item"><%= link_to 'Users', users_path, class: "text-decoration-none text-light" %></li>
             <li class = "dropdown-item"><%= link_to 'Role', roles_path, class: "text-decoration-none text-light" %></li>
-            <li class = "dropdown-item"><%= link_to 'Manage Product', product_user_path(current_user), class: "text-decoration-none text-light" %></li>
+            <li class = "dropdown-item"><%= link_to 'Manage Product', all_products_path, class: "text-decoration-none text-light" %></li>
             <li class = "dropdown-item"><%= link_to 'Manage Categories', categories_path, class: "text-decoration-none text-light" %></li>
             <li class = "dropdown-item"><%= link_to 'Manage Inventory', categories_path, class: "text-decoration-none text-light" %></li>
             <li class = "dropdown-item"><%= link_to 'Log Out', destroy_user_session_path, class: "text-decoration-none text-light",  data: { turbo_method: :delete, turbo_confirm: "Are you sure you want to log out?" }%> </li>

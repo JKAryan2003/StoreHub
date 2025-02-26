@@ -23,8 +23,6 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root "products#index"
 
-  get '/search', to: "products#search"
-
   resources :users do
     member do
       get '/product', to: 'users#my_products'
@@ -36,27 +34,25 @@ Rails.application.routes.draw do
 
   resources :products 
   get '/all_products', to: 'products#all_products'
+
   resources :product_stocks
 
-  resources :categories do
-    member do
-      get '/product', to: 'categories#products'
-    end
-  end
+  resources :categories 
 
   resources :carts, only: [:index, :destroy]
   post 'carts/remove'             
   post 'carts/increase'
   post 'carts/decrease'
+
   resources :cart_products
 
   resources :orders, only: [ :index ]
   get 'all_orders', to: 'orders#all_orders'
+  
   resources :order_items, only: [ :update ] 
   post 'order_items/:id', to: 'order_items#create', as: 'create_order' 
 
   resources :addresses, only: [:create, :destroy]
-  post 'addresses/edit_address'
-  
+
   get 'checkout', to: 'checkout#index'
 end

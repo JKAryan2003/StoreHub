@@ -5,7 +5,7 @@ class AddressesController < ApplicationController
     if params[:address][:id].blank?
       @address = Address.new(address_params)
       @address.user = current_user
-      change_default
+      # change_default
       if @address.save
         redirect_to checkout_path, notice: "Address Created Successfully!"
       else
@@ -14,7 +14,7 @@ class AddressesController < ApplicationController
       end
     else
       @address = Address.find_by(id: params[:address][:id])
-      change_default
+      # change_default
     
       if @address.update(address_params)
         redirect_to checkout_path, notice: "Address Updated Successfully!"
@@ -35,13 +35,13 @@ class AddressesController < ApplicationController
   private
 
   def address_params
-    params.require(:address).permit(:recipient_name, :street, :city, :state, :zip_code, :phone_number, :default_address)
+    params.require(:address).permit(:recipient_name, :street, :city, :state, :zip_code, :phone_number, :defa)
   end
 
-  def change_default
-    if params[:address][:default_address] == true
-      addresses = current_user.addresses
-      addresses.where(default_address: true).update(default_address: false)
-    end
-  end
+  # def change_default
+  #   if params[:address][:default_address] == true
+  #     addresses = current_user.addresses
+  #     addresses.where(default_address: true).update(default_address: false)
+  #   end
+  # end
 end

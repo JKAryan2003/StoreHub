@@ -2,14 +2,23 @@ class ProductsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy, :all_products]
 
   def index
-    @products = Product.all
-    @categories = Category.all
-
-    if params[:search].present?
+   
+    if params[:search]
+      @products = Product.all
+      @categories = Category.all
       @products = @products.where('name LIKE ?', "%#{params[:search]}%")
+      
+    elsif params[:category_id]
+  
+      @categories = Category.all
+      category = Category.find_by(id: params[:category_id])
+      @products = category.products
+
+    else
+      @products = Product.all
+      @categories = Category.all
     end
-    
-    product
+
   end
 
   def new
@@ -58,10 +67,6 @@ class ProductsController < ApplicationController
   def all_products
     @all_products = Product.all
     authorize @all_products
-  end
-
-  def execute_on_button_click
-    SimpleJob.perform_async('Aryan')
   end
 
   private

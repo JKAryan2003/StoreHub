@@ -162,38 +162,31 @@
           <%= f.hidden_field :id %>
 
           <div class = "form-group m-3">
-            <%= f.label :recipient_name %>
-            <%= f.text_field :recipient_name ,class: "form-control my-3", placeholder: "Recipient Name  " %>
+            <%= f.text_field :recipient_name ,class: "form-control my-3", placeholder: "Recipient Name" %>
           </div>
 				
 					<div class = "form-group m-3">
-            <%= f.label :street %>
-            <%= f.text_field :street ,class: "form-control my-3" %>
+            <%= f.text_field :street ,class: "form-control my-3", placeholder: "Street" %>
           </div>
 
           <div class = "form-group m-3">
-            <%= f.label :city %>
-            <%= f.text_field :city, class: "form-control my-3" %>
+            <%= f.text_field :city, class: "form-control my-3", placeholder: "City" %>
           </div>
 
           <div class = "form-group m-3">
-            <%= f.label :state %>
-            <%= f.text_field :state, class: "form-control my-3" %>
+            <%= f.text_field :state, class: "form-control my-3", placeholder: "State" %>
           </div>
 
           <div class = "form-group m-3">
-            <%= f.label :zip_code %>
-            <%= f.text_field :zip_code, class: "form-control my-3" %>
+            <%= f.text_field :zip_code, class: "form-control my-3", placeholder: "Zip Code" %>
           </div>
 
           <div class = "form-group m-3">
-            <%= f.label :phone_number %>
-            <%= f.text_field :phone_number ,class: "form-control my-3" %>
+            <%= f.text_field :phone_number ,class: "form-control my-3", placeholder: "Phone Number" %>
           </div>
 
           <div class = "form-group m-3">
-            <%= f.hidden_field :default_address, value: false %>
-            
+            <%= f.check_box :default_address, { checked: true, unchecked: false, value: true } %>
             <%= f.label :make_this_address_default, class: "text-secondary" %>
           </div>
 				

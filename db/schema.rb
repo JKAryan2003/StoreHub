@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_02_21_052833) do
+ActiveRecord::Schema[7.2].define(version: 2025_02_26_094125) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -50,7 +50,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_02_21_052833) do
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "default_address"
+    t.boolean "default_address", default: false
     t.string "recipient_name"
     t.string "phone_number"
     t.index ["user_id"], name: "index_addresses_on_user_id"

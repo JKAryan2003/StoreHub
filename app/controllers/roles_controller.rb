@@ -2,8 +2,14 @@ class RolesController < ApplicationController
   before_action :authenticate_user!, only: [:index, :show, :edit, :update]
 
   def index
-    @roles = Role.all
-    authorize @roles
+
+    respond_to do |format|
+      format.html
+      format.json { render json: RoleDatatable.new(params, view_context: view_context) }
+    end
+
+    authorize Role.all
+    
   end
 
   def show

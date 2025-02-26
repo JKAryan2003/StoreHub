@@ -2,18 +2,16 @@ class AddressesController < ApplicationController
 
   def create
 
-    binding.pry
-
     if params[:address][:id].blank?
       @address = Address.new(address_params)
       @address.user = current_user
       change_default
-      # if @address.save
-      #   redirect_to checkout_path, notice: "Address Created Successfully!"
-      # else
-      #   flash.now[:alert] = @address.errors.full_messages.to_sentence
-      #   render turbo_stream: [turbo_stream.update("flash", partial: "shared/flash")]
-      # end
+      if @address.save
+        redirect_to checkout_path, notice: "Address Created Successfully!"
+      else
+        flash.now[:alert] = @address.errors.full_messages.to_sentence
+        render turbo_stream: [turbo_stream.update("flash", partial: "shared/flash")]
+      end
     else
       @address = Address.find_by(id: params[:address][:id])
       change_default

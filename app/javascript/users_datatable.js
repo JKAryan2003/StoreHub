@@ -1,8 +1,4 @@
-// users.js
-
 jQuery(document).ready(function() {
-  // document.addEventListener('DOMContentLoaded', function (){
-  console.log("Hello")
   $('#users-datatable').dataTable({
     "processing": true,
     "serverSide": true,
@@ -16,10 +12,11 @@ jQuery(document).ready(function() {
       {"data": "last_name"},
       {"data": "email"},
       {"data": "status"},
+      {"data": "roles"},
+      {"data": "actions"}
     ]
     // pagingType is optional, if you want full pagination controls.
     // Check dataTables documentation to learn more about
     // available options.
   });
 });
-// });

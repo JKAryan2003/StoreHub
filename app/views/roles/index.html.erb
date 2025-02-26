@@ -1,49 +1,16 @@
-<div class = "container d-flex justify-content-center align-items-center flex-column", style = "margin-top: 120px;">
-	<div class = "d-flex justify-content-center align-items-center flex-column">
-		<p class="h2 text-center mb-3">Roles List</p>
-		<%= link_to 'Create Role', new_role_path, class: "btn btn-primary mb-3" %>
+<table id="roles-datatable" data-source="<%= roles_path(format: :json) %>">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Role Name</th>
+      <th>Description</th>
+      <th colspan = "3">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
 
-		<div class = "table_div">
-			<table class="table table-hover text-center">
-				<thead class = "table-secondary">
-					<tr>
-						<th class = "p-3" >Role Name</th>
-						<th class = "p-3" >Description</th>
-						<th class = "p-3" colspan = "3">Actions</th>
-					</tr>
-				</thead>
-				<tbody class = "table-light text-center" >
-					<% @roles.each do |role|%>
-						<tr>
-							<td class = "p-3" ><%= role.role_name %></td>
-							<td class = "p-3"><%= role.description %></td>
-							<td class = "p-3">
-								<%= link_to role_path(role), class: "icon-link icon-link-hover btn btn-outline-dark", style: "--bs-icon-link-transform: translate3d(0, -.125rem, 0);" do%>
-									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
-										<path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0"/>
-										<path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7"/>
-									</svg>
-								<% end %>
-							</td>
-							<td class = "p-3">
-								<%= link_to edit_role_path(role), class: "icon-link icon-link-hover btn btn-outline-info", style: "--bs-icon-link-transform: translate3d(0, -.125rem, 0);" do %>
-									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
-										<path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325"/>
-									</svg>
-								<% end %> 
-							</td>
-							<td class = "p-3">
-								<%= link_to role_path(role), class: "icon-link icon-link-hover btn btn-outline-danger", style: "--bs-icon-link-transform: translate3d(0, -.125rem, 0);", data: {turbo_method: :delete, turbo_confirm: "Are you confirm to delete"} do %>
-									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
-										<path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
-									</svg>
-								<% end %>  
-							</td>
-						</tr>
-					<% end%>
-				</tbody>
-			</table>
-		</div>
-	</div>
-</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.1/jquery.min.js"></script>
 
+<%= javascript_include_tag "roles_datatable.js" %>

@@ -1,17 +1,14 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!, only: [:index, :show, :edit, :update]
 
-  # def index
-  #   @users = User.all
-  #   authorize @users
-  #   @pagy, @users = pagy(@users, limit: 5)
-  # end
-
   def index
+
     respond_to do |format|
       format.html
-      format.json { render json: UserDatatable.new(params) }
+      format.json { render json: UserDatatable.new(params, view_context: view_context) }
     end
+
+    authorize User.all
   end
   
   def edit
@@ -56,12 +53,6 @@ class UsersController < ApplicationController
       authorize user
     end
     @roles = user.roles
-
-    # @user = User.find_by(id: params[:id])
-    # if @user != current_user
-    #   # authorize @user
-    # end
-    # @roles = @user.roles
   end
 
   def destroy

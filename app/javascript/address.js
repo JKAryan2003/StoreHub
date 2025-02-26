@@ -38,10 +38,3 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 });
-
-
-document.addEventListener('DOMContentLoaded', function () {
-  document.getElementById('rzp-button1').onclick = function(e){
-    document.getElementById("checkoutForm").submit();
-  }
-});

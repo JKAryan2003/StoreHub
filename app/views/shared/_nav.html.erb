@@ -6,7 +6,7 @@
     <nav class="navbar bg-body-tertiary ms-5" style = "margin-left: 80px;">
       <div class="container-fluid">
         <form class="d-flex" role="search">
-          <%= form_tag products_path, method: "get" do %>
+          <%= form_tag root_path, method: "get" do %>
             <%= text_field_tag :search, params[:search], placeholder: "Search Product", class: "form-control" %>
             <%= submit_tag("Search", name: nil,  class: "btn btn-outline-success") %>
           <% end %>

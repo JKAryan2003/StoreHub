@@ -1,20 +1,22 @@
 class OrderItemsController < ApplicationController
 
+  skip_before_action :verify_authenticity_token, only: [:create]
+
   def create
-    current_cart = Cart.find_by(user_id: current_user.id)
-    current_cart_items = current_cart.cart_products
 
-    current_order = Order.create(user_id: current_user.id, address_id: params[:address_id])
-
-    current_cart_items.each do |cart_item|
-      OrderItem.create(order_id: current_order.id, product_id: cart_item.product_id, quantity: cart_item.quantity, price: cart_item.product.price * cart_item.quantity )
-      cart_item.destroy
+    if Razorpay::Utility.verify_payment_signature(payment_signature)
+      current_cart = Cart.find_by(user_id: current_user.id)
+      current_cart_items = current_cart.cart_products
+  
+      current_order = Order.create(user_id: current_user.id, address_id: params[:id])
+  
+      current_cart_items.each do |cart_item|
+        OrderItem.create(order_id: current_order.id, product_id: cart_item.product_id, quantity: cart_item.quantity, price: cart_item.product.price * cart_item.quantity )
+        cart_item.destroy
+      end
+      redirect_to root_path, notice: "Order Placed!"
     end
-
-    
-
-    # OrderMailer.order_placed_mail(current_user, current_order).deliver_later
-    redirect_to root_path, notice: "Order Placed!"
+   
   end
 
   def update
@@ -29,4 +31,15 @@ class OrderItemsController < ApplicationController
 
   end
 
+  private
+  
+  def payment_signature
+
+    payment_response = {
+      razorpay_order_id: params[:razorpay_order_id],
+      razorpay_payment_id: params[:razorpay_payment_id],
+      razorpay_signature: params[:razorpay_signature]
+    }
+
+  end
 end

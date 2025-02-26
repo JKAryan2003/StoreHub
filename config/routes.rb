@@ -53,7 +53,7 @@ Rails.application.routes.draw do
   resources :orders, only: [ :index ]
   get 'all_orders', to: 'orders#all_orders'
   resources :order_items, only: [ :update ] 
-  post 'order_items', to: 'order_items#create', as: 'create_order' 
+  post 'order_items/:id', to: 'order_items#create', as: 'create_order' 
 
   resources :addresses, only: [:create, :destroy]
   post 'addresses/edit_address'

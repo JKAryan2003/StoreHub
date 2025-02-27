@@ -79,17 +79,24 @@
 				</div>
 
 				<div class = "d-flex justify-content-around"  style = "height: 15%;">
-					<div>
-						<%= link_to "Details", product_path(product), class: "btn btn-info" %>
-					</div>
-					<%= form_with(url: cart_products_path) do |f| %>
-						<%= f.hidden_field :id, value: product.id %>
-						<%= f.submit "Add to Cart", class: "btn btn-dark" %>
+					<% if product.check_product_stock == 0 %>
+						<div>
+							Out of Stock
+						</div>
+					<% else %>
+						<div>
+							<%= link_to "Details", product_path(product), class: "btn btn-info" %>
+						</div>
+						<%= form_with(url: cart_products_path) do |f| %>
+							<%= f.hidden_field :id, value: product.id %>
+							<%= f.submit "Add to Cart", class: "btn btn-dark" %>
+						<% end %>
 					<% end %>
 				</div>
 			</div>
 		<% end %>
 
+			<%= paginate @products %>
 	</div>
 </div>
 

@@ -49,11 +49,9 @@
 								<% end %>  
 							</td>
 							<td class = "">
-								<%= link_to do %>
-									<button class = "btn" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal", data-id = "<%= product.id %>", data-name = "<%= product.name %>" >
-										<i class="bi bi-plus-circle"></i>						
-									</button>
-								<% end %>
+								<button class = "btn" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal", data-id = "<%= product.id %>", data-name = "<%= product.name %>" >
+									<i class="bi bi-plus-circle"></i>						
+								</button>
 							</td>
 						</tr>
 					<% end%>

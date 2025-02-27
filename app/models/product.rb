@@ -1,4 +1,6 @@
 class Product < ApplicationRecord
+  paginates_per 2
+
   has_many_attached :images
   has_many :product_categories, dependent: :destroy
   has_many :categories, through: :product_categories
@@ -9,4 +11,11 @@ class Product < ApplicationRecord
   belongs_to :user
 
   has_many :order_items, dependent: :destroy
+
+  def check_product_stock
+
+    product_stocks.where(transaction_type: "in").pluck(:quantity).sum - 
+		product_stocks.where(transaction_type: "out").pluck(:quantity).sum 
+
+  end
 end

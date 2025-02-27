@@ -13,10 +13,14 @@ class CategoryPolicy < ApplicationPolicy
   end
 
   def edit?
-    user.owner?
+    user.admin?
   end
 
   def update?
     edit?
+  end
+
+  def show?
+    user.admin?
   end
 end

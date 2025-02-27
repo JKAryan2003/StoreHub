@@ -13,6 +13,8 @@ class OrderItemsController < ApplicationController
       current_cart_items.each do |cart_item|
         OrderItem.create(order_id: current_order.id, product_id: cart_item.product_id, quantity: cart_item.quantity, price: cart_item.product.price * cart_item.quantity )
         cart_item.destroy
+
+        ProductStock.create(product_id: cart_item.product_id, transaction_type: "out", quantity: cart_item.quantity)
       end
       redirect_to root_path, notice: "Order Placed!"
     end

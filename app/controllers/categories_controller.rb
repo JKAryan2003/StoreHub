@@ -8,7 +8,7 @@ class CategoriesController < ApplicationController
   
   def new
     @category = Category.new
-    @parent_categories = Category.where(parent_id: nil)
+    @categories = Category.all
     authorize @category
   end
 

@@ -67,6 +67,7 @@ end
 gem "pundit", "~> 2.4"
 
 gem "pagy", "~> 9.3"
+gem 'kaminari'
 
 # gem 'jquery-rails'
 

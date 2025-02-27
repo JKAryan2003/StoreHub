@@ -15,7 +15,8 @@ class ProductsController < ApplicationController
       @products = category.products
 
     else
-      @products = Product.all
+      # @users = User.order(:name).page params[:page]
+      @products = Product.all.page(params[:page])
       @categories = Category.all
     end
 
